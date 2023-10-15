@@ -4,9 +4,13 @@ import 'dart:io';
 import 'package:app_chat_fire_base/core/services/auth/auth_service.dart';
 
 class AuthMockService implements AuthService {
+  static Map<String, ChatUser> _users = {};
+  static ChatUser? _currentUser;
+
   @override
-  // TODO: implement currentUser
-  ChatUser? get currentUser => null;
+  ChatUser? get currentUser {
+    return _currentUser;
+  }
 
   @override
   Future<void> login(String email, String password) async {
