@@ -33,5 +33,5 @@ class AuthMockService implements AuthService {
 
   @override
   // TODO: implement userChanges
-  // Stream<ChatUser?> get userChanges {}
+  Stream<ChatUser?> get userChanges {}
 }
