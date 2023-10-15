@@ -1,20 +1,48 @@
 import 'package:app_chat_fire_base/components/auth_form.dart';
+import 'package:app_chat_fire_base/models/auth_form_data.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  bool _isLoading = false;
+
+  void _handleSubmit(AuthFormData formData) {
+    setState(() => _isLoading = true);
+    print('Dentro de AuthPage');
+    print(formData.email);
+    // setState(() => _isLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: SingleChildScrollView(
-          // A comunicação indireta ocorre quando o componente Filho "AuthForm"
-          // precisa passar informações pro comp. pai quando ocorre alguma
-          // ação dentro dele/filho, e isso só pode ser feito quando o comp.
-          // pai passa uma função que é recebida no construtor do comp.
-          // filho
-          child: AuthForm(),
-        ),
+      body: Stack(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              // A comunicação indireta ocorre quando o componente Filho "AuthForm"
+              // precisa passar informações pro comp. pai quando ocorre alguma
+              // ação dentro dele/filho, e isso só pode ser feito quando o comp.
+              // pai passa uma função que é recebida no construtor do comp.
+              // filho
+              child: AuthForm(onSubmit: _handleSubmit),
+            ),
+          ),
+          if (_isLoading)
+            Container(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            )
+        ],
       ),
     );
   }
